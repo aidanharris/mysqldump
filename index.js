@@ -26,10 +26,11 @@ function Mysqldump(database, options) {
     port: options.port || 3306,
     user: options.user || process.env.USER || 'root',
     password: options.password || false,
-    gzip: options.gzip || false
+    gzip: options.gzip || false,
+    protocol: options.protocol || 'socket'
   }
   this.dump = this.start = this.run = this.make = function() {
-    var params = ['-h', opts.host,'-P', opts.port, '-u', opts.user];
+    var params = ['-h', opts.host,'-P', opts.port, '-u', opts.user, '--protocol=' + opts.protocol];
     var gzip;
     if(opts.password !== false) {
       params = params.concat(['-p'+opts.password]);
